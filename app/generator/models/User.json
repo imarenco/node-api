@@ -1,0 +1,14 @@
+{
+	"name": "User",
+	"structure": {
+		"name": "String",
+		"account": { "type": "ObjectId", "ref": "Account" }
+	},
+	"detail": {  "populate": ["Account"] },
+	"list":{ "populate": ["Account"], "service": [{"name": "auth", "method":"ifAuth"}] },
+	"update":{},
+	"delete":{},
+	"create":{},
+	"endpoints":[
+	]
+}

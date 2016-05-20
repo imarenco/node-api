@@ -1,0 +1,13 @@
+{
+	"name": "Account",
+	"structure": {
+		"name": "String"
+	},
+	"detail": {},
+	"update":{},
+	"delete":{},
+	"list": {},
+	"create":{},
+	"endpoints":[
+	]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ./"
+  },
+  "engines": {
+    "node": ">=4.4.0"
+  },
+  "dependencies": {
+    "async": "^2.0.0-rc.5",
+    "bunyan": "^1.8.1",
+    "mongoose": "^4.4.16",
+    "restify": "^4.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "mocha": "^2.4.5"
+  }
+}
