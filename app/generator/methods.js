@@ -4,12 +4,12 @@ const httpHelper = require('./helper/httpHelper');
 
 exports.list = function(req, res) {
     const limit = req.query.limit || 10;
-    
+
     const page = typeof req.query.page !== 'undefined' ? 
     httpHelper.getPage(req.query.page, limit) : 
     httpHelper.getPage(1, limit);
 
-    let query =	req.schema.find({}).limit(limit).skip(page).lean();
+    let query =	req.schema.find(req.filter).limit(limit).skip(page).lean();
 		
     if (typeof req.model.list.populate !== 'undefined' && req.model.list.populate.length > 0) {
         query = httpHelper.addPopulate(query, req.model.list.populate);

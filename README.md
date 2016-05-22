@@ -18,12 +18,12 @@ For use you must put a model file into the path "app/generator/models/yourfile.j
 {
 	"name": "User",
 	"structure": {
-		"name": "String",
+		"name": {"type": String"},
 		"account": { "type": "ObjectId", "ref": "Account" }
 	},
 	"detail": {  "populate": ["Account"] },
 	"list":{"service": [{"name": "auth", "method":"ifAuth"}] },
-	"update":{unable: false},
+	"update":{ "unable": false},
 	"delete":{},
 	"create":{}
 }

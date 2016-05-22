@@ -16,7 +16,7 @@ mongoose.connection
     });
 
 var server = restify.createServer({
-    name: 'financial-api',
+    name: 'node-api',
     log: log
 });
 
