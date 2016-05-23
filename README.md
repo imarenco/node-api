@@ -30,11 +30,11 @@ For use you must put a model file into the path "app/generator/models/yourfile.j
 ```
 This fields represent the info of api need for start. The "name" is the field of you use for your path, in this case the path is  "/user" because apply lowercase.
 The structure represent the fields of the documents for store/update/find in MongoDb, this structure model support all the types of Mongoose Date/String/Number/Mixed/ObjectId. After have 5 methods of rest api:
-* list -> /user -> return [];
-* detail ->  /user/:id -> return {};
-* create -> /user -> return {};
-* delete -> /user/:id -> status: 204
-* update -> /user/:id -> return {};
+* list -> get -> /user -> return [];
+* detail -> get -> /user/:id -> return {};
+* create -> post -> /user -> return {};
+* delete -> delete -> /user/:id -> status: 204
+* update -> put -> /user/:id -> return {};
 
 In all of the methods you can populate fields, and disable method set "unable": false. Also you can add middlewares set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
 ### Tech
