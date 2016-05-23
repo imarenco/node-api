@@ -40,7 +40,7 @@ The structure represents the fields of the documents in store/update/find in Mon
 In all of the methods you can populate fields, and disable method set "unable": false. Also you can add a middleware, set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
 
 ### How to use filters(list)
-In method "list" you can set diferent parameters to sort or filter the return documents. Two parameters that you can set through query are "page" and "limit" for paginating the results. Also, you can filter the result put field's value through query, for example "/user?name=juan", in this example filter all the documents with only have name "juan", only can set fields are in the structure of the model.
+In method "list" you can set diferent parameters to sort or filter the return documents. Two parameters that you can set through query are "page" and "limit" for paginating the results, for example "/user?page=2&limit=3". Also, you can filter the result put field's value through query, for example "/user?name=juan", in this example filter all the documents with only have name "juan", only can set fields are in the structure of the model.
 
 ### Tech
 
