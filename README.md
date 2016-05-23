@@ -1,6 +1,6 @@
 # Node-Api
 
-Node-Api is auto generate api, for use you only must set the models, also provide a easy middlewares integrate for add services( middlewares ).
+Node-Api is auto generator api, for use you only must set the models, also provide an easy middleware integrate to add services (auth, log, etc).
 
 ### Installation
 
@@ -10,7 +10,7 @@ Node Api requires [Node.js](https://nodejs.org/) v4.4+ to run and requires [Mong
 ```sh
 node index.js
 ```
-For run without Docker the unique of you need to do it's "node index.js", before of this you should set enviroment variables for config, port the app, url of MongoDb, etc. If you not set all enviroment variables doesn't matter, because all have default value.
+To run without Docker the unique of you need to do is "node index. js", before of this you should set environment variables for config, port the app, url of MongoDb, etc. If you don't set all environment variables doesn't matter, because all have default values. 
 
 ### How to use
 For use you must put a model file into the path "app/generator/models/yourfile.json", this file must be a structure like:
@@ -28,19 +28,19 @@ For use you must put a model file into the path "app/generator/models/yourfile.j
 	"create":{}
 }
 ```
-This fields represent the info of api need for start. The "name" is the field of you use for your path, in this case the path is  "/user" because apply lowercase.
-The structure represent the fields of the documents for store/update/find in MongoDb, this structure model support all the types of Mongoose Date/String/Number/Mixed/ObjectId. After have 5 methods of rest api:
+
+This field represents the info that the api needs to start. The "name" is the field that you use for your path, in this case the path is  "/user" because apply lowercase.
+The structure represents the fields of the documents in store/update/find in MongoDb, this structure model support all the types of Mongoose Date/String/Number/Mixed/ObjectId. After having 5 methods of rest api:
 * list -> get -> /user -> return [];
 * detail -> get -> /user/:id -> return {};
 * create -> post -> /user -> return {};
 * delete -> delete -> /user/:id -> status: 204
 * update -> put -> /user/:id -> return {};
 
-In all of the methods you can populate fields, and disable method set "unable": false. Also you can add middlewares set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
+In all of the methods you can populate fields, and disable method set "unable": false. Also you can add a middleware, set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
 
 ### How to use filters(list)
-In method "list" you can set diferents filters to sort or filter  the return documents. Two parameters of you can set through query are "page" and "limit" for paginating the results. Also you can filter the result put fields value through query, for example "/user?name=juan", in this example filter all the documents with only have name "juan", only can set fields are in the structure of the model.
-
+In method "list" you can set diferent parameters to sort or filter the return documents. Two parameters that you can set through query are "page" and "limit" for paginating the results. Also, you can filter the result put field's value through query, for example "/user?name=juan", in this example filter all the documents with only have name "juan", only can set fields are in the structure of the model.
 
 ### Tech
 
