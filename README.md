@@ -37,6 +37,11 @@ The structure represent the fields of the documents for store/update/find in Mon
 * update -> put -> /user/:id -> return {};
 
 In all of the methods you can populate fields, and disable method set "unable": false. Also you can add middlewares set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
+
+### How to use filters(list)
+In method "list" you can set diferents filters to sort or filter  the return documents. Two parameters of you can set through query are "page" and "limit" for paginating the results. Also you can filter the result put fields value through query, for example "/user?name=juan", in this example filter all the documents with only have name "juan", only can set fields are in the structure of the model.
+
+
 ### Tech
 
 Node-Api uses a number of open source projects to work properly:
