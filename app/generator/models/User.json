@@ -2,6 +2,7 @@
 	"name": "User",
 	"structure": {
 		"name": {"type":"String"},
+		"label": {"type": "String"},
 		"account": { "type": "ObjectId", "ref": "Account" }
 	},
 	"detail": {  "populate": ["Account"] },

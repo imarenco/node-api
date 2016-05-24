@@ -23,27 +23,6 @@ exports.handleRest = function(server, schema, model) {
         next();
     }
 
-    function applyFilter(req, res, next) {
-        req.filter = {};
-        const keys = Object.keys(req.query);
-        if (keys.length > 0) {
-            for (var i = 0; i < keys.length; i++) {
-                if (
-                    keys[i] !== 'page' && keys[i] !== 'limit' && 
-                    typeof model.structure[keys[i]] !== 'undefined'
-                ) {
-                    const type = (model.structure[keys[i]].type === 'ObjectId') ? 
-                        'object' : 
-                        model.structure[keys[i]].type.toLowerCase(); 
-                    
-                    if (typeof req.query[keys[i]] === type) {
-                        req.filter[keys[i]] = req.query[keys[i]];
-                    }
-                }
-            }
-        }
-        next();
-    }
 
     var configMiddleware = {
         list: function(req, res, next) {
@@ -68,9 +47,10 @@ exports.handleRest = function(server, schema, model) {
         const method = keys[i];
         if (httpHelper.checkMethod(method, model[method] || {})) {
             server[rest[method].method](
-                rest[method].url, getSchema, 
+                rest[method].url, 
+                getSchema, 
                 configMiddleware[method],
-                applyFilter, 
+                httpHelper.applyFilter, 
                 methods[method]
             );
         }

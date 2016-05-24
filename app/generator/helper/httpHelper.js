@@ -1,6 +1,8 @@
 'use strict';
 var async = require('async');
 
+const that = this;
+
 exports.addPopulate = function(query, populates) {
     for (var i = 0; i < populates.length; i++) {
         query = query.populate(populates[i].toLowerCase());
@@ -64,4 +66,48 @@ exports.setMiddlewares = function(model) {
         }
     }
     return middlewares;
+};
+
+exports.applySearch = function(req) {
+    const search = JSON.parse(req.query.search);
+    const keys = Object.keys(search);
+    for (var x = 0; x < keys.length; x++) {
+        const type = req.model.structure[keys[x]].type.toLowerCase();
+        if (type === 'string' && typeof search[keys[x]] === 'string') {
+            req.filter[keys[x]] = new RegExp(search[keys[x]], 'i');
+        }
+    }
+};
+
+exports.applyQueryFilter = function(req, keys) {
+    for (var i = 0; i < keys.length; i++) {
+        if (
+            keys[i] !== 'page' && keys[i] !== 'limit' && keys[i] !== 'search' &&
+            typeof req.model.structure[keys[i]] !== 'undefined'
+        ) 
+        {
+            const type = (req.model.structure[keys[i]].type === 'ObjectId') ? 
+                'object' :
+                req.model.structure[keys[i]].type.toLowerCase(); 
+                    
+            if (typeof req.query[keys[i]] === type) {
+                req.filter[keys[i]] = req.query[keys[i]];
+            }
+        }
+    }
+};
+
+exports.applyFilter = function(req, res, next) {
+    req.filter = {};
+    const keys = Object.keys(req.query);
+    
+    if (keys.length > 0) {
+        that.applyQueryFilter(req, keys);
+    }
+    
+    if (req.query.search) {
+        that.applySearch(req);
+    }
+    
+    next();
 };
