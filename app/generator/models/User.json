@@ -5,11 +5,9 @@
 		"label": {"type": "String"},
 		"account": { "type": "ObjectId", "ref": "Account" }
 	},
-	"detail": {  "populate": ["Account"] },
-	"list":{ "populate": ["Account"], "service": [{"name": "auth", "method":"ifAuth"}] },
+	"detail": { "select": {"account": false }, "populate": ["Account"] },
+	"list":{ "select": {"name": false}, "populate": ["Account"], "service": [{"name": "auth", "method":"ifAuth"}] },
 	"update":{},
 	"delete":{},
-	"create":{},
-	"endpoints":[
-	]
+	"create":{}
 }

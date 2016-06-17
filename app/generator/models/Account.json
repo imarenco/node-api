@@ -7,7 +7,5 @@
 	"update":{},
 	"delete":{},
 	"list": {},
-	"create":{},
-	"endpoints":[
-	]
+	"create":{}
 }

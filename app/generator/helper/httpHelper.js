@@ -1,6 +1,6 @@
 'use strict';
 var async = require('async');
-
+var log = require('../../../service/log');
 const that = this;
 
 exports.addPopulate = function(query, populates) {
@@ -35,7 +35,7 @@ exports.configureMiddleware = function(req, res, next, middlewares) {
 
         async.series(operations, function(err) {
             if (err) {
-                console.log('There was a problem running the middleware!');
+                log.error('There was a problem running the middleware' + err);
                 return next(err);
             }
             next();
@@ -95,6 +95,16 @@ exports.applyQueryFilter = function(req, keys) {
             }
         }
     }
+};
+
+exports.addSelected = function(query, select) {
+    const keys = Object.keys(select);
+    var selected = {};
+    for (var i = 0; i < keys.length; i++) {
+        selected[keys[i]] = (select[keys[i]] == false) ? 0 : 1;  
+    }
+
+    return selected;
 };
 
 exports.applyFilter = function(req, res, next) {

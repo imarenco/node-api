@@ -14,7 +14,14 @@ exports.list = function(req, res) {
     if (typeof req.model.list.populate !== 'undefined' && req.model.list.populate.length > 0) {
         query = httpHelper.addPopulate(query, req.model.list.populate);
     }
-		
+	
+
+    if (
+        typeof req.model.list.select !== 'undefined' && 
+        Object.keys(req.model.list.select).length > 0) {       
+        query.select(httpHelper.addSelected(query, req.model.list.select));
+    }
+
     query
     .then(docs => res.send(docs))
     .catch(err => res.status(500).send(err));
@@ -23,10 +30,17 @@ exports.list = function(req, res) {
 exports.detail = function(req, res) {
     let query =	req.schema.findById(req.params.id).lean();
 
-    if (typeof req.model.detail.populate !== 'undefined' && req.model.detail.populate.length > 0) {
+    if (
+        typeof req.model.detail.populate !== 'undefined' && req.model.detail.populate.length > 0) {
         query = httpHelper.addPopulate(query, req.model.list.populate);
     }
-		
+	
+    if (
+        typeof req.model.detail.select !== 'undefined' && 
+        Object.keys(req.model.detail.select).length > 0) {       
+        query.select(httpHelper.addSelected(query, req.model.detail.select));
+    }
+
     return query
     .then(doc => res.send(doc))
     .catch(err => res.status(500).send(err));

@@ -21,7 +21,7 @@ For use you must put a model file into the path "app/generator/models/yourfile.j
 		"name": {"type": String"},
 		"account": { "type": "ObjectId", "ref": "Account" }
 	},
-	"detail": {  "populate": ["Account"] },
+	"detail": {  "select": {"account": false }, "populate": ["Account"] },
 	"list":{"service": [{"name": "auth", "method":"ifAuth"}] },
 	"update":{ "unable": false},
 	"delete":{},
@@ -37,7 +37,7 @@ The structure represents the fields of the documents in store/update/find in Mon
 * delete -> delete -> /user/:id -> status: 204
 * update -> put -> /user/:id -> return {};
 
-In all of the methods you can populate fields, and disable method set "unable": false. Also you can add a middleware, set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
+In all of the methods you can populate fields, disable method set "unable": false, and set or unset fields in response. Also you can add a middleware, set element in array "service", you must put the name file and method of the service, this file must be in "/service", you can see a example of this in "/service/auth".
 
 ### How to use filters(list)
 In method "list" you can set diferent parameters to sort or filter the return documents. The parameters of you can set are:
