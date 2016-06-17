@@ -39,7 +39,8 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    return	req.schema.update({_id: req.params.id }, req.body).lean()
+    return	req.schema.findOneAndUpdate({_id: req.params.id }, req.body, {new: true})
+    .lean()
     .then(doc => res.send(doc))
     .catch(err => res.status(500).send(err));
 };
