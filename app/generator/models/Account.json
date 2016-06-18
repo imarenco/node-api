@@ -1,7 +1,9 @@
 {
 	"name": "Account",
 	"structure": {
-		"name": {"type":"String"}
+		"name": {
+			"type":"String"
+		}
 	},
 	"detail": {},
 	"update":{},

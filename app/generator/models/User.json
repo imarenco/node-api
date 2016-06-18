@@ -1,12 +1,47 @@
 {
 	"name": "User",
 	"structure": {
-		"name": {"type":"String"},
-		"label": {"type": "String"},
-		"account": { "type": "ObjectId", "ref": "Account" }
+		"name": {
+			"type":"String"
+		},
+		"label": {
+			"type": "String"
+		},
+		"account": { 
+			"type": "ObjectId", 
+			"ref": "Account" 
+		}
 	},
-	"detail": { "select": {"account": false }, "populate": ["Account"] },
-	"list":{ "select": {"name": false}, "populate": ["Account"], "service": [{"name": "auth", "method":"ifAuth"}] },
+	"detail": { 
+		"validate":[
+			{
+				"name":"id", 
+				"source":"params", 
+				"rules" : {
+					"presence": "true",
+					"length": {
+						"is": 24
+					} 
+				} 
+			}
+		], 
+		"select": {
+			"account": false 
+		}, 
+		"populate": ["Account"] 
+	},
+	"list":{ 
+		"select": {
+			"name": false
+		}, 
+		"populate": ["Account"], 
+		"service": [
+			{
+				"name": "auth", 
+				"method":"ifAuth"
+			}
+		] 
+	},
 	"update":{},
 	"delete":{},
 	"create":{}

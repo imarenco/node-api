@@ -13,7 +13,8 @@
     "async": "^2.0.0-rc.5",
     "bunyan": "^1.8.1",
     "mongoose": "^4.4.16",
-    "restify": "^4.0.4"
+    "restify": "^4.0.4",
+    "validate.js": "^0.10.0"
   },
   "devDependencies": {
     "eslint": "^2.10.2",
