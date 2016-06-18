@@ -1,4 +1,5 @@
 'use strict';
+
 var methods = require('./methods');
 var httpHelper = require('./helper/httpHelper');
 
@@ -6,14 +7,6 @@ exports.handleRest = function(server, schema, model) {
     model.name = model.name.toLowerCase();
     const urlId = `/${model.name}/:id`;
     const urlOutId = `/${model.name}`;
-
-    const rest = { 
-        'list': { method: 'get', url: urlOutId }, 
-        'create': { method: 'post', url: urlOutId },
-        'delete': { method: 'del', url: urlId },
-        'detail': { method: 'get', url: urlId }, 
-        'update': { method: 'put', url: urlId} 
-    };
 
     var middlewares = httpHelper.setMiddlewares(model);
 
@@ -23,33 +16,52 @@ exports.handleRest = function(server, schema, model) {
         next();
     }
 
-
-    var configMiddleware = {
-        list: function(req, res, next) {
-            return httpHelper.configureMiddleware(req, res, next, middlewares.list);
+    const configMiddleware = {
+        list:{
+            config:function(req, res, next) {
+                return httpHelper.configureMiddleware(req, res, next, middlewares.list);
+            },
+            method: 'get', 
+            url: urlOutId
         },
-        detail: function(req, res, next) {
-            return httpHelper.configureMiddleware(req, res, next, middlewares.detail);
+        detail:{ 
+            config:function(req, res, next) {
+                return httpHelper.configureMiddleware(req, res, next, middlewares.detail);
+            },
+            method: 'get',
+            url: urlId
         },
-        create: function(req, res, next) {
-            return httpHelper.configureMiddleware(req, res, next, middlewares.create);
+        create: {
+            config:function(req, res, next) {
+                return httpHelper.configureMiddleware(req, res, next, middlewares.create);
+            },
+            method: 'post', 
+            url: urlOutId
         },
-        update: function(req, res, next) {
-            return httpHelper.configureMiddleware(req, res, next, middlewares.update);
-        },
-        delete: function(req, res, next) {
-            return httpHelper.configureMiddleware(req, res, next, middlewares.delete);
+        update:{
+            config:function(req, res, next) {
+                return httpHelper.configureMiddleware(req, res, next, middlewares.update);
+            },
+            method: 'put', 
+            url: urlId
+        }, 
+        delete: {
+            config:function(req, res, next) {
+                return httpHelper.configureMiddleware(req, res, next, middlewares.delete);
+            },
+            method: 'del', 
+            url: urlId
         }
     };
 
-    const keys = Object.keys(rest);
+    const keys = Object.keys(configMiddleware);
     for (var i = 0; i < keys.length; i++) {
         const method = keys[i];
-        if (httpHelper.checkMethod(method, model[method] || {})) {
-            server[rest[method].method](
-                rest[method].url, 
+        if (httpHelper.checkMethod(method, model[method] || {})) {            
+            server[configMiddleware[method].method](
+                configMiddleware[method].url, 
                 getSchema, 
-                configMiddleware[method],
+                configMiddleware[method].config,
                 httpHelper.applyFilter, 
                 methods[method]
             );
