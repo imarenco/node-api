@@ -2,8 +2,10 @@
 
 const config = require('./config');
 const restify = require('restify');
-const mongoose = require('mongoose');
 const log = require('./service/log');
+
+var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection
