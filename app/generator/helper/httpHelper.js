@@ -57,7 +57,7 @@ exports.setMiddlewares = function(model) {
     
     var keys = Object.keys(middlewares);
     for (var x = 0; x < keys.length; x++) {
-        if (typeof model[keys[x]].service !== 'undefined') {
+        if (typeof model[keys[x]] !== "undefined" && typeof model[keys[x]].service !== 'undefined') {
             for (var i = 0; i < model[keys[x]].service.length; i++) {
                 const service = model[keys[x]].service[i].name;
                 const method = model[keys[x]].service[i].method;
