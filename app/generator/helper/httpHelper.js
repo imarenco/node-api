@@ -92,14 +92,17 @@ exports.applyQueryFilter = function(req, keys) {
     }
 };
 
-exports.addSelected = function(query, select) {
-    const keys = Object.keys(select);
-    var selected = {};
+exports.addSelected = function(model) {
+    const keys = Object.keys(model);
     for (var i = 0; i < keys.length; i++) {
-        selected[keys[i]] = (select[keys[i]] == false) ? 0 : 1;
+        if(typeof model[keys[i]].select !== "undefined" ){
+            const selects = Object.keys(model[keys[i]].select);
+            for (var x = 0; x < selects.length; x++) {
+                model[keys[i]].select[selects[x]] = (model[keys[i]].select[selects[x]] == false) ? 0 : 1;
+            }
+        }
     }
-
-    return selected;
+    return;
 };
 
 exports.applyFilter = function(req, method) {

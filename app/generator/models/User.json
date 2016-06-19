@@ -46,7 +46,8 @@
 		],
 		"search": true,
 		"select": {
-			"name": true
+			"name": false,
+			"account": false
 		}, 
 		"populate": ["Account"], 
 		"service": [

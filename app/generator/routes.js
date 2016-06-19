@@ -10,7 +10,7 @@ exports.handleRest = function(server, schema, model) {
     const urlOutId = `/${model.name}`;
 
     var middlewares = httpHelper.setMiddlewares(model);
-
+    httpHelper.addSelected(model);
     function getSchema(req, res, next) {
         req.schema = schema;
         req.model = model;
