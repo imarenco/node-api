@@ -12,13 +12,13 @@
 			"ref": "Account" 
 		}
 	},
-	"detail": { 
+	"detail": {
 		"validate":[
 			{
 				"name":"id", 
 				"source":"params", 
 				"rules" : {
-					"presence": "true",
+					"presence": true,
 					"length": {
 						"is": 24
 					} 
@@ -30,7 +30,8 @@
 		}, 
 		"populate": ["Account"] 
 	},
-	"list":{ 
+	"list":{
+		"search": true,
 		"select": {
 			"name": false
 		}, 

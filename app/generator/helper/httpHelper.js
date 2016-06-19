@@ -114,8 +114,7 @@ exports.applyFilter = function(req, res, next) {
     if (keys.length > 0) {
         that.applyQueryFilter(req, keys);
     }
-    
-    if (req.query.search) {
+    if (req.query.search && req.model.list.search){
         that.applySearch(req);
     }
     
