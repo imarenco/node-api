@@ -22,8 +22,24 @@ exports.list = function(req, res) {
         query.select(httpHelper.addSelected(query, req.model.list.select));
     }
 
-    query
-    .then(docs => res.send(docs))
+
+    const queryCount = req.model.list.paginate ? req.schema.count(req.filter) : null;
+
+    return Promise.all([query, queryCount])
+    .then(function(data) {
+        const count = data[1] || null;
+        var response = {
+            limit: limit,
+            docs: data[0]
+        };
+
+        if (count) {
+            response.pages = Math.ceil(count / limit);
+            response.total = count;
+        }
+
+        res.send(response);
+    })
     .catch(err => res.status(500).send(err));
 };
 

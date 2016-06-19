@@ -31,6 +31,7 @@
 		"populate": ["Account"] 
 	},
 	"list":{
+		"paginate": true,
 		"validate":[
 			{
 				"name":"limit", 
@@ -45,7 +46,7 @@
 		],
 		"search": true,
 		"select": {
-			"name": false
+			"name": true
 		}, 
 		"populate": ["Account"], 
 		"service": [
