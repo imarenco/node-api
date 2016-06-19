@@ -5,7 +5,7 @@ const httpHelper = require('./helper/httpHelper');
 exports.list = function(req, res) {
     
     httpHelper.applyFilter(req, 'list');
-      
+
     const limit = req.query.limit || 10;
 
     const page = typeof req.query.page !== 'undefined' ? 

@@ -57,7 +57,10 @@ exports.setMiddlewares = function(model) {
     
     var keys = Object.keys(middlewares);
     for (var x = 0; x < keys.length; x++) {
-        if (typeof model[keys[x]] !== "undefined" && typeof model[keys[x]].service !== 'undefined') {
+        if (
+            typeof model[keys[x]] !== 'undefined' && 
+            typeof model[keys[x]].service !== 'undefined'
+        ) {
             for (var i = 0; i < model[keys[x]].service.length; i++) {
                 const service = model[keys[x]].service[i].name;
                 const method = model[keys[x]].service[i].method;
@@ -95,10 +98,11 @@ exports.applyQueryFilter = function(req, keys) {
 exports.addSelected = function(model) {
     const keys = Object.keys(model);
     for (var i = 0; i < keys.length; i++) {
-        if(typeof model[keys[i]].select !== "undefined" ){
+        if (typeof model[keys[i]].select !== 'undefined') {
             const selects = Object.keys(model[keys[i]].select);
             for (var x = 0; x < selects.length; x++) {
-                model[keys[i]].select[selects[x]] = (model[keys[i]].select[selects[x]] == false) ? 0 : 1;
+                model[keys[i]].select[selects[x]] = model[keys[i]].select[selects[x]] == false ?
+                0 : 1;
             }
         }
     }
