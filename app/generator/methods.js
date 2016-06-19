@@ -3,6 +3,9 @@
 const httpHelper = require('./helper/httpHelper');
 
 exports.list = function(req, res) {
+    
+    httpHelper.applyFilter(req, 'list');
+      
     const limit = req.query.limit || 10;
 
     const page = typeof req.query.page !== 'undefined' ? 
@@ -15,13 +18,11 @@ exports.list = function(req, res) {
         query = httpHelper.addPopulate(query, req.model.list.populate);
     }
 	
-
     if (
         typeof req.model.list.select !== 'undefined' && 
         Object.keys(req.model.list.select).length > 0) {       
         query.select(httpHelper.addSelected(query, req.model.list.select));
     }
-
 
     const queryCount = req.model.list.paginate ? req.schema.count(req.filter) : null;
 

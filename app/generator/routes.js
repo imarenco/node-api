@@ -78,7 +78,6 @@ exports.handleRest = function(server, schema, model) {
                 configMiddleware[method].url, 
                 getSchema, 
                 configMiddleware[method].config,
-                httpHelper.applyFilter,
                 configMiddleware[method].validate, 
                 methods[method]
             );

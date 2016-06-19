@@ -102,7 +102,7 @@ exports.addSelected = function(query, select) {
     return selected;
 };
 
-exports.applyFilter = function(req, res, next) {
+exports.applyFilter = function(req, method) {
     req.filter = {};
     const keys = Object.keys(req.query);
     
@@ -110,9 +110,9 @@ exports.applyFilter = function(req, res, next) {
         that.applyQueryFilter(req, keys);
     }
     
-    if (req.query.search && req.model.list.search) {
+    if (req.query.search && req.model[method].search) {
         that.applySearch(req);
     }
-    
-    next();
+
+    return;
 };
