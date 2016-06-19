@@ -31,6 +31,18 @@
 		"populate": ["Account"] 
 	},
 	"list":{
+		"validate":[
+			{
+				"name":"limit", 
+				"source":"query", 
+				"rules" : {
+					"presence": false,
+					"numericality": {
+      					"onlyInteger": true	
+					}
+				} 
+			}
+		],
 		"search": true,
 		"select": {
 			"name": false

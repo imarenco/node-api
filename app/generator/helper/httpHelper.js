@@ -81,18 +81,13 @@ exports.applySearch = function(req) {
 
 exports.applyQueryFilter = function(req, keys) {
     for (var i = 0; i < keys.length; i++) {
-        if (
-            keys[i] !== 'page' && keys[i] !== 'limit' && keys[i] !== 'search' &&
-            typeof req.model.structure[keys[i]] !== 'undefined'
-        ) 
-        {
-            const type = (req.model.structure[keys[i]].type === 'ObjectId') ? 
-                'object' :
-                req.model.structure[keys[i]].type.toLowerCase(); 
-                    
-            if (typeof req.query[keys[i]] === type) {
-                req.filter[keys[i]] = req.query[keys[i]];
-            }
+        if ( 
+            keys[i] !== 'page' && 
+            keys[i] !== 'limit' && 
+            keys[i] !== 'search' && 
+            typeof req.model.structure[keys[i]] !== 'undefined' 
+        ) {
+            req.filter[keys[i]] = req.query[keys[i]];
         }
     }
 };
@@ -101,7 +96,7 @@ exports.addSelected = function(query, select) {
     const keys = Object.keys(select);
     var selected = {};
     for (var i = 0; i < keys.length; i++) {
-        selected[keys[i]] = (select[keys[i]] == false) ? 0 : 1;  
+        selected[keys[i]] = (select[keys[i]] == false) ? 0 : 1;
     }
 
     return selected;
@@ -114,7 +109,8 @@ exports.applyFilter = function(req, res, next) {
     if (keys.length > 0) {
         that.applyQueryFilter(req, keys);
     }
-    if (req.query.search && req.model.list.search){
+    
+    if (req.query.search && req.model.list.search) {
         that.applySearch(req);
     }
     
