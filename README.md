@@ -114,7 +114,7 @@ docker run -d -p 80:80 --restart="always" <youruser>/tag:latest
 Verify the deployment by navigating to your server address in your preferred browser.
 
 ### Version
-0.1.0
+0.2.0
 
 ### Todos
 
