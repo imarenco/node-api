@@ -1,7 +1,6 @@
 'use strict';
 var async = require('async');
 var log = require('../../../service/log');
-const that = this;
 
 exports.addPopulate = function(query, populates) {
     for (var i = 0; i < populates.length; i++) {
@@ -71,30 +70,6 @@ exports.setMiddlewares = function(model) {
     return middlewares;
 };
 
-exports.applySearch = function(req) {
-    const search = JSON.parse(req.query.search);
-    const keys = Object.keys(search);
-    for (var x = 0; x < keys.length; x++) {
-        const type = req.model.structure[keys[x]].type.toLowerCase();
-        if (type === 'string' && typeof search[keys[x]] === 'string') {
-            req.filter[keys[x]] = new RegExp(search[keys[x]], 'i');
-        }
-    }
-};
-
-exports.applyQueryFilter = function(req, keys) {
-    for (var i = 0; i < keys.length; i++) {
-        if ( 
-            keys[i] !== 'page' && 
-            keys[i] !== 'limit' && 
-            keys[i] !== 'search' && 
-            typeof req.model.structure[keys[i]] !== 'undefined' 
-        ) {
-            req.filter[keys[i]] = req.query[keys[i]];
-        }
-    }
-};
-
 exports.addSelected = function(model) {
     const keys = Object.keys(model);
     for (var i = 0; i < keys.length; i++) {
@@ -114,12 +89,36 @@ exports.applyFilter = function(req, method) {
     const keys = Object.keys(req.query);
     
     if (keys.length > 0) {
-        that.applyQueryFilter(req, keys);
+        applyQueryFilter(req, keys);
     }
     
     if (req.query.search && req.model[method].search) {
-        that.applySearch(req);
+        applySearch(req);
     }
 
     return;
 };
+
+function applySearch(req) {
+    const search = JSON.parse(req.query.search);
+    const keys = Object.keys(search);
+    for (var x = 0; x < keys.length; x++) {
+        const type = req.model.structure[keys[x]].type.toLowerCase();
+        if (type === 'string' && typeof search[keys[x]] === 'string') {
+            req.filter[keys[x]] = new RegExp(search[keys[x]], 'i');
+        }
+    }
+}
+
+function applyQueryFilter(req, keys) {
+    for (var i = 0; i < keys.length; i++) {
+        if ( 
+            keys[i] !== 'page' && 
+            keys[i] !== 'limit' && 
+            keys[i] !== 'search' && 
+            typeof req.model.structure[keys[i]] !== 'undefined' 
+        ) {
+            req.filter[keys[i]] = req.query[keys[i]];
+        }
+    }
+}
