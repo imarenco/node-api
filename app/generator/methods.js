@@ -24,18 +24,14 @@ exports.list = function(req, res) {
 
     return Promise.all([query, queryCount])
     .then(function(data) {
-        const count = data[1] || null;
-        var response = {
+        const count = data[1];
+
+        res.send(count ? {
             limit: limit,
-            docs: data[0]
-        };
-
-        if (count) {
-            response.pages = Math.ceil(count / limit);
-            response.total = count;
-        }
-
-        res.send(response);
+            docs: data[0],
+            pages: Math.ceil(count / limit),
+            total: count
+        } : {limit: limit, docs: data[0] });
     })
     .catch(err => res.status(500).send(err));
 };
