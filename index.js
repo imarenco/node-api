@@ -22,10 +22,9 @@ var server = restify.createServer({
     log: log
 });
 
-server.use(restify.acceptParser(server.acceptable));
-server.use(restify.queryParser());
-server.use(restify.bodyParser());
-server.use(restify.CORS());
+server.use(restify.plugins.acceptParser(server.acceptable));
+server.use(restify.plugins.queryParser());
+server.use(restify.plugins.bodyParser());
 
 require('./app')(server);
 
